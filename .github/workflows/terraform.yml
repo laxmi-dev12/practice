@@ -41,16 +41,18 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
         
+      
       - name: Check Azure Secrets
         shell: bash
         env:
-            CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-            TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-            SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         run: |
-            test -n "$CLIENT_ID" && echo "Client ID is set" || (echo "Client ID is missing"; exit 1)
-            test -n "$TENANT_ID" && echo "Tenant ID is set" || (echo "Tenant ID is missing"; exit 1)
-            test -n "$SUBSCRIPTION_ID" && echo "Subscription ID is set" || (echo "Subscription ID is missing"; exit 1)
+          test -n "$CLIENT_ID" && echo "Client ID is set" || (echo "Client ID is missing"; exit 1)
+          test -n "$TENANT_ID" && echo "Tenant ID is set" || (echo "Tenant ID is missing"; exit 1)
+          test -n "$SUBSCRIPTION_ID" && echo "Subscription ID is set" || (echo "Subscription ID is missing"; exit 1)
+
       - name: Azure Login with OIDC
         uses: azure/login@v2
         with:
